@@ -7,7 +7,7 @@ const double twoPi = 6.283185;
 void setup() {
   Serial.begin(115200);
   /* //myTimer.begin(function, microseconds); */
-  myTimer.priority(0);
+  myTimer.priority(128);
   myTimer.begin(dispCounts, 1000000);  // run every 1 seconds
 
   pinMode(20, INPUT);
