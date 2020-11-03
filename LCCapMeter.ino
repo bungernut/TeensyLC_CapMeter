@@ -1,8 +1,11 @@
 volatile uint32_t counts;
 IntervalTimer myTimer;
-double capF;
+volatile double capF;
 const double indH = 0.001;
 const double twoPi = 6.283185;
+uint32_t currTime = 0;
+uint32_t prevTime = 0;
+const uint32_t refresh_period = 1000;
 
 void setup() {
   Serial.begin(115200);
@@ -22,12 +25,16 @@ void doCount()
 void dispCounts()
 {
   capF = 1.0 / (pow( (double)counts/1000000.0 * twoPi ,2) * indH) ; 
-  Serial.println(capF);
   counts = 0;
   
 }
 
 void loop()
 {
-  while (1);
+  currTime = millis();
+  if (currTime - prevTime > refresh_period)
+  {
+    Serial.println(capF);
+    prevTime = currTime;
+  }
 }
